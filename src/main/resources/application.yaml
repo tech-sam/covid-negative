@@ -19,3 +19,11 @@ spring:
     password: postgres
     url: jdbc:postgresql://localhost:5432/covid19
     driver: org.postgresql.Driver
+
+#Redis Configuration
+redis:
+  default:
+    host: localhost
+    port: 6379
+    password: password
+    ttl: 2
