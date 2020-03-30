@@ -20,6 +20,11 @@ spring:
     url: jdbc:postgresql://localhost:5432/covid19
     driver: org.postgresql.Driver
 
+server:
+   servlet:
+     contextPath: /covid-negative
+
+
 #Redis Configuration
 redis:
   default:
@@ -27,3 +32,7 @@ redis:
     port: 6379
     password: password
     ttl: 2
+
+covid:
+  data:
+    statisticsUrl: "https://api.covid19india.org/data.json"
