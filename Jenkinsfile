@@ -15,7 +15,7 @@ pipeline {
 
           stage("Docker build") {
                steps {
-                    sh "docker build -t darknightdocker/covid19-negative:latest ."
+                    sh "docker build -t darkknightdocker/covid19-negative:latest ."
                }
           }
 
