@@ -15,7 +15,16 @@ pipeline {
 
           stage("Docker build") {
                steps {
-                    sh "docker build -t darknightdocker/calculator:latest ."
+                    sh "docker build -t darknightdocker/covid19-negative:latest ."
+               }
+          }
+
+          stage("Docker login") {
+               steps {
+                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'db296491-d35f-4bbd-9632-f7ff91fd3af1',
+                                      usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+                         sh "docker login --username $USERNAME --password $PASSWORD"
+                    }
                }
           }
 
