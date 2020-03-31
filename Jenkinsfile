@@ -1,14 +1,15 @@
 pipeline {
      agent any
      stages {
-          stage('Checkout') {
-               scm checkout
-          }
-
-
           stage("Compile") {
                steps {
                     sh "./gradlew compileJava"
+               }
+          }
+
+          stage("Package") {
+               steps {
+                    sh "./gradlew build"
                }
           }
 
