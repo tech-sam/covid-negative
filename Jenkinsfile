@@ -28,6 +28,12 @@ pipeline {
                }
           }
 
+          stage("Docker push") {
+               steps {
+                    sh "docker push darknightdocker/covid19-negative:latest"
+               }
+          }
+
      }
 
 }
