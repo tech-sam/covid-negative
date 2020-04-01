@@ -36,3 +36,4 @@ redis:
 covid:
   data:
     statisticsUrl: "https://api.covid19india.org/data.json"
+    newsApiUrl: "https://newsapi.org/v2/top-headlines"

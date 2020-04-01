@@ -1,17 +1,15 @@
 package com.covid19negative.dashboard;
 
+import com.covid19negative.dashboard.model.news.providerEntities.newsAPI.NewsAPIResponse;
+import com.covid19negative.dashboard.model.news.request.NewsCriteria;
 import com.covid19negative.dashboard.model.Statistics;
+import com.covid19negative.dashboard.model.news.response.News;
 import com.covid19negative.dashboard.service.DashboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @RestController
@@ -27,7 +25,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String welcomeMsg() {
-        return "Lets come together and fight against Novel Corona Virus ";
+        return "Let's come together to fight against Novel Corona Virus ";
     }
 
     @PostMapping("/cache")
@@ -48,5 +46,10 @@ public class HomeController {
     @GetMapping("/statistics")
     public Statistics getCovidStatistics() {
        return dashboardService.getCovidStatistics();
+    }
+
+    @PostMapping("/news")
+    public News fetchNews(@RequestBody NewsCriteria newsForm) {
+        return dashboardService.getNews(newsForm);
     }
 }

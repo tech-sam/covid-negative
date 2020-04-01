@@ -11,4 +11,5 @@ import org.springframework.stereotype.Component;
 @Setter
 public class CovidDataProperties {
     private String statisticsUrl;
+    private String newsApiUrl;
 }
