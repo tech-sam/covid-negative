@@ -8,6 +8,6 @@ public class HomeController {
 
     @GetMapping("/")
     public String welcomeMsg() {
-        return "Lets come together and fight against Novel Corona Virus ";
+        return "Lets come together and fight against Novel Corona Virus !!";
     }
 }
