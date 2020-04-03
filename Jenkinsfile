@@ -7,17 +7,30 @@ pipeline {
                }
           }
 
-
           stage("Package") {
                steps {
                     sh "./gradlew build"
                }
           }
 
-
-          stage("Run") {
+          stage("Docker build") {
                steps {
-                    sh "./gradlew run"
+                    sh "docker build -t darkknightdocker/covid19-negative:latest ."
+               }
+          }
+
+          stage("Docker login") {
+               steps {
+                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'db296491-d35f-4bbd-9632-f7ff91fd3af1',
+                                      usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+                         sh "docker login --username $USERNAME --password $PASSWORD"
+                    }
+               }
+          }
+
+          stage("Docker push") {
+               steps {
+                    sh "docker push darkknightdocker/covid19-negative:latest"
                }
           }
 
