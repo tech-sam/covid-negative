@@ -21,8 +21,11 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -39,6 +42,8 @@ public class DashboardService {
 
     @Autowired
     private ApplicationContext appContext;
+
+    private Map<String, List<INewsProvider>> newsProvidersMap = new HashMap<>();
 
     List<INewsProvider> newsProviders;
 
@@ -64,7 +69,7 @@ public class DashboardService {
 
     public News getNews(NewsCriteria newsForm) {
         try {
-            List<INewsProvider> newsProviders = getNewsProviders();
+            List<INewsProvider> newsProviders = getNewsProviders(newsForm);
             List<NewsItem> newsItems = new ArrayList<>();
             newsProviders.forEach(n -> newsItems.addAll(n.fetchBulletins(newsForm)));
             News news = new News();
@@ -77,11 +82,15 @@ public class DashboardService {
         }
     }
 
-    private List<INewsProvider> getNewsProviders() {
-        if (CollectionUtils.isEmpty(newsProviders)) {
-            newsProviders = new ArrayList<>(appContext
-                    .getBeansOfType(INewsProvider.class).values());
+    private List<INewsProvider> getNewsProviders(NewsCriteria newsForm) {
+        if (!newsProvidersMap.containsKey(newsForm.getType())) {
+            if (CollectionUtils.isEmpty(newsProviders)) {
+                newsProviders = new ArrayList<>(appContext
+                        .getBeansOfType(INewsProvider.class).values());
+            }
+            List<INewsProvider> filteredNewsProviders = newsProviders.stream().filter(newsProvider -> newsProvider.supports(newsForm)).collect(Collectors.toList());
+            newsProvidersMap.put(newsForm.getType(), filteredNewsProviders);
         }
-        return newsProviders;
+        return newsProvidersMap.get(newsForm.getType());
     }
 }

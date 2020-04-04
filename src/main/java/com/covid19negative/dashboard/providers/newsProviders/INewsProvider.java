@@ -10,4 +10,6 @@ import java.util.List;
 public interface INewsProvider {
 
     List<NewsItem> fetchBulletins(NewsCriteria newsForm);
+
+    boolean supports(NewsCriteria newsForm);
 }

@@ -1,5 +1,6 @@
 package com.covid19negative.dashboard;
 
+import com.covid19negative.common.exception.InternalServerError;
 import com.covid19negative.dashboard.model.news.providerEntities.newsAPI.NewsAPIResponse;
 import com.covid19negative.dashboard.model.news.request.NewsCriteria;
 import com.covid19negative.dashboard.model.Statistics;
@@ -50,6 +51,10 @@ public class HomeController {
 
     @PostMapping("/news")
     public News fetchNews(@RequestBody NewsCriteria newsForm) {
-        return dashboardService.getNews(newsForm);
+        try {
+            return dashboardService.getNews(newsForm);
+        } catch (Exception e) {
+            throw new InternalServerError(String.format("Error occurred while fetching %s news", newsForm.getType()), e);
+        }
     }
 }
