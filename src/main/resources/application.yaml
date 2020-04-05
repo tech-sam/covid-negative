@@ -28,7 +28,7 @@ server:
 #Redis Configuration
 redis:
   default:
-    host: 172.17.0.3
+    host: 172.17.0.2
     port: 6379
     password: password
     ttl: 2
