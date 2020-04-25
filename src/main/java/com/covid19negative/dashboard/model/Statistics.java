@@ -24,4 +24,17 @@ public class Statistics implements Serializable {
         private String lastupdatedtime;
         private String recovered;
     }
+
+    @Getter
+    @Setter
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class Global implements Serializable {
+        private String cases;
+        private String deaths;
+        private String recovered;
+        private String updated;
+        private String active;
+        private String affectedCountries;
+    }
+
 }

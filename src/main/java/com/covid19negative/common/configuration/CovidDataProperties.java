@@ -12,4 +12,6 @@ import org.springframework.stereotype.Component;
 public class CovidDataProperties {
     private String statisticsUrl;
     private String newsApiUrl;
+    private String globalStatsUrl;
+    private String globalSummaryUrl;
 }

@@ -1,16 +1,19 @@
 package com.covid19negative.dashboard;
 
 import com.covid19negative.common.exception.InternalServerError;
-import com.covid19negative.dashboard.model.news.providerEntities.newsAPI.NewsAPIResponse;
-import com.covid19negative.dashboard.model.news.request.NewsCriteria;
+import com.covid19negative.dashboard.model.GlobalSummary;
 import com.covid19negative.dashboard.model.Statistics;
+import com.covid19negative.dashboard.model.news.request.NewsCriteria;
 import com.covid19negative.dashboard.model.news.response.News;
 import com.covid19negative.dashboard.service.DashboardService;
+import io.github.nandandesai.twitterscraper4j.models.Tweet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @RestController
@@ -55,6 +58,20 @@ public class HomeController {
             return dashboardService.getNews(newsForm);
         } catch (Exception e) {
             throw new InternalServerError(String.format("Error occurred while fetching %s news", newsForm.getType()), e);
-        }
+        }}
+
+    @GetMapping("/statistics/global")
+    public Statistics.Global getGlobalCovidStatistics() {
+        return dashboardService.getGlobalCovidStatistics();
+    }
+
+    @GetMapping("/statistics/global/summary")
+    public GlobalSummary getGlobalCovidSummary() {
+        return dashboardService.getGlobalCovidSummary();
+    }
+
+    @GetMapping("/tweets")
+    public List<Tweet> getCovidTweets() {
+        return dashboardService.getCovidTweets();
     }
 }

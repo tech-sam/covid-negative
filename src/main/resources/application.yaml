@@ -28,7 +28,7 @@ server:
 #Redis Configuration
 redis:
   default:
-    host: 172.17.0.2
+    host: 127.0.0.1
     port: 6379
     password: password
     ttl: 2
@@ -37,3 +37,5 @@ covid:
   data:
     statisticsUrl: "https://api.covid19india.org/data.json"
     newsApiUrl: "https://newsapi.org/v2/top-headlines"
+    globalStatsUrl: "https://corona.lmao.ninja/v2/all"
+    globalSummaryUrl: "https://api.covid19api.com/summary"
